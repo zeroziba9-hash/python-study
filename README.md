@@ -97,6 +97,31 @@ plt.close()
 
 ## 시각화 스크린샷
 
+아래는 스크린샷(차트) 생성에 직접 사용된 코드입니다.
+
+```python
+# 1) Student Scores
+plt.figure(figsize=(8, 4.5))
+plt.bar(list(students.keys()), list(students.values()))
+plt.title("Student Scores")
+plt.savefig("charts/student_scores.png", dpi=150)
+plt.close()
+
+# 2) Sales by Region
+plt.figure(figsize=(8, 4.5))
+region_sum.plot(kind="bar")
+plt.title("Sales by Region")
+plt.savefig("charts/sales_by_region.png", dpi=150)
+plt.close()
+
+# 3) ML Logistic Confusion Matrix
+plt.figure(figsize=(5, 4))
+plt.imshow(cm, cmap="Blues")
+plt.title("Iris Logistic Confusion Matrix")
+plt.savefig("charts/ml_logistic_confusion_matrix.png", dpi=150)
+plt.close()
+```
+
 ### Student Scores
 ![Student Scores](charts/student_scores.png)
 
