@@ -95,50 +95,83 @@ plt.close()
 - `python-outputs/python_results.json`
 - `outputs/all_examples_results.json`
 
-## 시각화 스크린샷
+## 시각화 스크린샷 (코드 → 결과)
 
-아래는 스크린샷(차트) 생성에 직접 사용된 코드입니다.
-
+### 1) Student Scores
 ```python
-# 1) Student Scores
 plt.figure(figsize=(8, 4.5))
 plt.bar(list(students.keys()), list(students.values()))
 plt.title("Student Scores")
+plt.xlabel("Student")
+plt.ylabel("Score")
 plt.savefig("charts/student_scores.png", dpi=150)
 plt.close()
+```
+![Student Scores](charts/student_scores.png)
 
-# 2) Sales by Region
+### 2) Sales by Region
+```python
 plt.figure(figsize=(8, 4.5))
 region_sum.plot(kind="bar")
 plt.title("Sales by Region")
+plt.xlabel("Region")
+plt.ylabel("Sales")
 plt.savefig("charts/sales_by_region.png", dpi=150)
 plt.close()
+```
+![Sales by Region](charts/sales_by_region.png)
 
-# 3) ML Logistic Confusion Matrix
+### 3) Log Level Distribution
+```python
+plt.figure(figsize=(6, 6))
+plt.pie(level_counter.values(), labels=level_counter.keys(), autopct="%1.1f%%", startangle=90)
+plt.title("Log Level Distribution")
+plt.savefig("charts/log_level_distribution.png", dpi=150)
+plt.close()
+```
+![Log Level Distribution](charts/log_level_distribution.png)
+
+### 4) ML Logistic Confusion Matrix
+```python
 plt.figure(figsize=(5, 4))
 plt.imshow(cm, cmap="Blues")
 plt.title("Iris Logistic Confusion Matrix")
+plt.colorbar()
 plt.savefig("charts/ml_logistic_confusion_matrix.png", dpi=150)
 plt.close()
 ```
-
-### Student Scores
-![Student Scores](charts/student_scores.png)
-
-### Sales by Region
-![Sales by Region](charts/sales_by_region.png)
-
-### Log Level Distribution
-![Log Level Distribution](charts/log_level_distribution.png)
-
-### ML Logistic Confusion Matrix
 ![ML Logistic Confusion Matrix](charts/ml_logistic_confusion_matrix.png)
 
-### Regression RMSE Comparison
+### 5) Regression RMSE Comparison
+```python
+plt.figure(figsize=(6, 4))
+plt.bar(["LinearRegression", "RandomForest"], rmse_vals)
+plt.title("Regression RMSE Comparison")
+plt.ylabel("RMSE")
+plt.savefig("charts/ml_regression_rmse_comparison.png", dpi=150)
+plt.close()
+```
 ![Regression RMSE Comparison](charts/ml_regression_rmse_comparison.png)
 
-### Feature Importance Top5
+### 6) Feature Importance Top5
+```python
+plt.figure(figsize=(8, 4.5))
+imp.head(5).sort_values().plot(kind="barh")
+plt.title("Top-5 Feature Importance (Breast Cancer)")
+plt.xlabel("Importance")
+plt.savefig("charts/ml_feature_importance_top5.png", dpi=150)
+plt.close()
+```
 ![Feature Importance Top5](charts/ml_feature_importance_top5.png)
 
-### DL Regularization Sweep
+### 7) DL Regularization Sweep
+```python
+plt.figure(figsize=(6, 4))
+plt.plot([r["alpha"] for r in reg_rows], [r["acc"] for r in reg_rows], marker="o")
+plt.title("Regularization Sweep (Digits MLP)")
+plt.xlabel("alpha")
+plt.ylabel("accuracy")
+plt.savefig("charts/dl_regularization_sweep.png", dpi=150)
+plt.close()
+```
 ![DL Regularization Sweep](charts/dl_regularization_sweep.png)
