@@ -31,6 +31,55 @@ plt.savefig("charts/sales_by_region.png", dpi=150)
 plt.close()
 ```
 
+## 주요 코드 스니펫
+
+### 1) Python 실습 스크립트 (`run_python_programming.py`)
+
+```python
+# 지역별 매출 집계
+sales_df = pd.DataFrame(
+    {
+        "region": ["Seoul", "Seoul", "Busan", "Busan", "Incheon", "Seoul"],
+        "product": ["A", "B", "A", "C", "A", "C"],
+        "amount": [120, 80, 100, 90, 70, 110],
+    }
+)
+region_sum = sales_df.groupby("region")["amount"].sum().sort_values(ascending=False)
+
+# 시각화 저장
+plt.figure(figsize=(8, 4.5))
+region_sum.plot(kind="bar")
+plt.title("Sales by Region")
+plt.savefig("charts/sales_by_region.png", dpi=150)
+plt.close()
+```
+
+### 2) ML/DL 스크립트 (`run_all_ml_dl_examples.py`)
+
+```python
+# Logistic Regression 학습/평가
+X, y = load_iris(return_X_y=True)
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=42, stratify=y
+)
+
+scaler = StandardScaler()
+X_train_s = scaler.fit_transform(X_train)
+X_test_s = scaler.transform(X_test)
+
+clf = LogisticRegression(max_iter=1000, random_state=42)
+clf.fit(X_train_s, y_train)
+pred = clf.predict(X_test_s)
+cm = confusion_matrix(y_test, pred)
+
+# Confusion Matrix 저장
+plt.figure(figsize=(5, 4))
+plt.imshow(cm, cmap="Blues")
+plt.title("Iris Logistic Confusion Matrix")
+plt.savefig("charts/ml_logistic_confusion_matrix.png", dpi=150)
+plt.close()
+```
+
 ## 생성되는 시각화 파일
 
 - `charts/student_scores.png`
