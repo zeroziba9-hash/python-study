@@ -1,11 +1,10 @@
 {
-  "day1": {
+  "python_basics": {
     "avg_score": 84.29,
     "pass_count": 5,
-    "top_student": "lee",
-    "top_grade": "A"
+    "top_student": "lee"
   },
-  "day2": {
+  "data_processing": {
     "numpy": {
       "shape": [
         2,
@@ -30,7 +29,7 @@
       "B": 80
     }
   },
-  "day3": {
+  "log_analysis": {
     "total_logs": 8,
     "level_count": {
       "INFO": 4,
@@ -44,24 +43,9 @@
       "ERROR api 500"
     ]
   },
-  "assignments": {
-    "day1": [
-      "사용자 입력 점수 리스트를 받아 평균/최고점/최저점을 출력하는 함수 작성",
-      "딕셔너리로 학생-점수 관리 후 A/B/C/D 등급 분포 계산"
-    ],
-    "day2": [
-      "CSV를 읽어 결측치 개수 확인 후 평균 대체",
-      "지역별 매출 합계/평균을 구하고 막대그래프로 시각화"
-    ],
-    "day3": [
-      "로그 파일에서 ERROR 비율 계산",
-      "가장 자주 발생한 에러 Top-3 추출",
-      "분석 결과를 JSON 보고서로 저장"
-    ]
-  },
   "charts": {
-    "day1_scores": "charts\\day1_student_scores.png",
-    "day2_region_sales": "charts\\day2_sales_by_region.png",
-    "day3_log_distribution": "charts\\day3_log_level_distribution.png"
+    "student_scores": "charts\\student_scores.png",
+    "sales_by_region": "charts\\sales_by_region.png",
+    "log_level_distribution": "charts\\log_level_distribution.png"
   }
 }
