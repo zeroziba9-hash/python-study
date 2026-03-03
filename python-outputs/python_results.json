@@ -1,0 +1,62 @@
+{
+  "day1": {
+    "avg_score": 84.29,
+    "pass_count": 5,
+    "top_student": "lee",
+    "top_grade": "A"
+  },
+  "day2": {
+    "numpy": {
+      "shape": [
+        2,
+        3
+      ],
+      "sum": 21,
+      "mean": 3.5,
+      "col_mean": [
+        2.5,
+        3.5,
+        4.5
+      ]
+    },
+    "region_sum": {
+      "Seoul": 310,
+      "Busan": 190,
+      "Incheon": 70
+    },
+    "product_sum": {
+      "A": 290,
+      "C": 200,
+      "B": 80
+    }
+  },
+  "day3": {
+    "total_logs": 8,
+    "level_count": {
+      "INFO": 4,
+      "ERROR": 3,
+      "WARNING": 1
+    },
+    "error_count": 3,
+    "errors": [
+      "ERROR db timeout",
+      "ERROR db timeout",
+      "ERROR api 500"
+    ]
+  },
+  "assignments": {
+    "day1": [
+      "사용자 입력 점수 리스트를 받아 평균/최고점/최저점을 출력하는 함수 작성",
+      "딕셔너리로 학생-점수 관리 후 A/B/C/D 등급 분포 계산"
+    ],
+    "day2": [
+      "CSV를 읽어 결측치 개수 확인 후 평균 대체",
+      "지역별 매출 합계/평균을 구하고 막대그래프로 시각화"
+    ],
+    "day3": [
+      "로그 파일에서 ERROR 비율 계산",
+      "가장 자주 발생한 에러 Top-3 추출",
+      "분석 결과를 JSON 보고서로 저장"
+    ]
+  }
+}

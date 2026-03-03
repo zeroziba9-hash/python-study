@@ -1,0 +1,123 @@
+{
+  "intro": {
+    "factory_failure": "ML",
+    "cctv_detection": "DL",
+    "churn_prediction": "ML"
+  },
+  "prep": {
+    "recommended_device": "RTX 3060 (if available)",
+    "cifar100": {
+      "classes": 100,
+      "image_size": "32x32 RGB",
+      "train": 50000,
+      "test": 10000
+    },
+    "runtime_device": {
+      "torch_version": null,
+      "cuda_available": false,
+      "device": "CPU"
+    }
+  },
+  "concepts": {
+    "supervised": "레이블 있는 데이터",
+    "reinforcement": "보상 최대화",
+    "deep_learning": "신경망 기반 표현학습",
+    "containment": "AI ⊃ ML ⊃ DL"
+  },
+  "ml": {
+    "logistic": {
+      "accuracy": 0.9333333333333333,
+      "confusion_matrix": [
+        [
+          10,
+          0,
+          0
+        ],
+        [
+          0,
+          9,
+          1
+        ],
+        [
+          0,
+          1,
+          9
+        ]
+      ]
+    },
+    "regression": {
+      "LinearRegression": {
+        "MAE": 42.79409467959994,
+        "RMSE": 53.85344583676593
+      },
+      "RandomForest": {
+        "MAE": 44.276123595505624,
+        "RMSE": 54.461217375612414
+      }
+    },
+    "svm_gridsearch": {
+      "best_params": {
+        "svm__C": 10,
+        "svm__gamma": "scale",
+        "svm__kernel": "rbf"
+      },
+      "best_cv": 0.993103448275862,
+      "test_acc": 0.9444444444444444
+    },
+    "feature_importance_top5": {
+      "worst perimeter": 0.13734428478768992,
+      "worst area": 0.13731177174182216,
+      "worst concave points": 0.11550196578453792,
+      "mean concave points": 0.09177420840591978,
+      "worst radius": 0.08411075324716967
+    }
+  },
+  "dl": {
+    "mlp_digits_acc": 0.9638888888888889,
+    "regularization_sweep": [
+      {
+        "alpha": 0.0,
+        "acc": 0.9666666666666667
+      },
+      {
+        "alpha": 0.0001,
+        "acc": 0.9666666666666667
+      },
+      {
+        "alpha": 0.001,
+        "acc": 0.9666666666666667
+      }
+    ],
+    "early_stopping": {
+      "without_es": 0.9638888888888889,
+      "with_es": 0.9666666666666667
+    }
+  },
+  "yolo": {
+    "bbox_xyxy_to_yolo_example": [
+      0.179688,
+      0.177083,
+      0.203125,
+      0.229167
+    ],
+    "precision": 0.84,
+    "recall": 0.8077,
+    "note": "환경 제약으로 실제 YOLO 대규모 학습은 제외하고, 라벨/지표/분석 실습을 실행"
+  },
+  "project": {
+    "title": "CIFAR-100 분류 성능 개선",
+    "target": "baseline 대비 +10%p",
+    "required": [
+      "실험로그",
+      "재현 가능한 코드",
+      "결과 해석"
+    ],
+    "rubric": {
+      "문제정의": 15,
+      "데이터/전처리": 20,
+      "모델링/실험": 25,
+      "결과해석": 20,
+      "문서/발표": 20
+    }
+  }
+}
