@@ -45,3 +45,26 @@ plt.close()
 
 - `python-outputs/python_results.json`
 - `outputs/all_examples_results.json`
+
+## 시각화 스크린샷
+
+### Student Scores
+![Student Scores](charts/student_scores.png)
+
+### Sales by Region
+![Sales by Region](charts/sales_by_region.png)
+
+### Log Level Distribution
+![Log Level Distribution](charts/log_level_distribution.png)
+
+### ML Logistic Confusion Matrix
+![ML Logistic Confusion Matrix](charts/ml_logistic_confusion_matrix.png)
+
+### Regression RMSE Comparison
+![Regression RMSE Comparison](charts/ml_regression_rmse_comparison.png)
+
+### Feature Importance Top5
+![Feature Importance Top5](charts/ml_feature_importance_top5.png)
+
+### DL Regularization Sweep
+![DL Regularization Sweep](charts/dl_regularization_sweep.png)
