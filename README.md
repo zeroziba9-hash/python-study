@@ -1,37 +1,60 @@
-# python-study
+# 📘 python-study
 
-파이썬 + 머신러닝/딥러닝 예제를 실행하고, 결과를 **시각화 PNG**로 저장하는 프로젝트입니다.
+파이썬 + 머신러닝/딥러닝 예제를 실행하고, 결과를 **시각화 PNG**로 저장하는 학습용 프로젝트입니다.
 
-## 실행
+---
+
+## ✨ 한눈에 보기
+
+- ✅ 파이썬 데이터 처리 실습
+- ✅ 머신러닝/딥러닝 기본 실험
+- ✅ 각 결과를 차트로 저장
+- ✅ README에서 코드와 결과를 함께 확인 가능
+
+---
+
+## 🚀 실행 방법
+
+### 기본 실행
 
 ```powershell
 python run_python_programming.py
 python run_all_ml_dl_examples.py
 ```
 
-인터프리터 충돌 시:
+### 인터프리터 충돌 시 (Python 3.10 고정)
 
 ```powershell
 & "C:\Users\user\AppData\Local\Programs\Python\Python310\python.exe" run_python_programming.py
 & "C:\Users\user\AppData\Local\Programs\Python\Python310\python.exe" run_all_ml_dl_examples.py
 ```
 
-## 생성되는 시각화 파일
+---
 
-- `charts/student_scores.png`
-- `charts/sales_by_region.png`
-- `charts/log_level_distribution.png`
-- `charts/ml_logistic_confusion_matrix.png`
-- `charts/ml_regression_rmse_comparison.png`
-- `charts/ml_feature_importance_top5.png`
-- `charts/dl_regularization_sweep.png`
+## 📂 생성 파일
 
-## 결과 JSON
+### 시각화 이미지 (`charts/`)
+
+- `student_scores.png`
+- `sales_by_region.png`
+- `log_level_distribution.png`
+- `ml_logistic_confusion_matrix.png`
+- `ml_regression_rmse_comparison.png`
+- `ml_feature_importance_top5.png`
+- `dl_regularization_sweep.png`
+
+### 결과 JSON
 
 - `python-outputs/python_results.json`
 - `outputs/all_examples_results.json`
 
-## 시각화 스크린샷 (코드 + 결과)
+---
+
+## 🖼️ 시각화 갤러리 (코드 → 결과)
+
+> 각 항목은 **코드 블록(위)** + **결과 이미지(아래)** 순서입니다.
+
+---
 
 ### 1) Student Scores
 
@@ -59,6 +82,8 @@ plt.close()
 
 ![Student Scores](charts/student_scores.png)
 
+---
+
 ### 2) Sales by Region
 
 ```python
@@ -85,6 +110,8 @@ plt.close()
 
 ![Sales by Region](charts/sales_by_region.png)
 
+---
+
 ### 3) Log Level Distribution
 
 ```python
@@ -110,6 +137,8 @@ plt.close()
 ```
 
 ![Log Level Distribution](charts/log_level_distribution.png)
+
+---
 
 ### 4) ML Logistic Confusion Matrix
 
@@ -143,6 +172,8 @@ plt.close()
 
 ![ML Logistic Confusion Matrix](charts/ml_logistic_confusion_matrix.png)
 
+---
+
 ### 5) Regression RMSE Comparison
 
 ```python
@@ -168,6 +199,8 @@ plt.close()
 
 ![Regression RMSE Comparison](charts/ml_regression_rmse_comparison.png)
 
+---
+
 ### 6) Feature Importance Top5
 
 ```python
@@ -189,6 +222,8 @@ plt.close()
 ```
 
 ![Feature Importance Top5](charts/ml_feature_importance_top5.png)
+
+---
 
 ### 7) DL Regularization Sweep
 
@@ -216,3 +251,10 @@ plt.close()
 ```
 
 ![DL Regularization Sweep](charts/dl_regularization_sweep.png)
+
+---
+
+## 🛠️ 참고
+
+- `ConvergenceWarning`은 학습 반복 수 관련 경고이며, 실행 실패는 아닙니다.
+- 필요 시 `max_iter`를 늘려 경고를 줄일 수 있습니다.
