@@ -80,6 +80,50 @@ plt.savefig("charts/ml_logistic_confusion_matrix.png", dpi=150)
 plt.close()
 ```
 
+### 3) 추가 코드 스니펫 (`run_python_programming.py`)
+
+```python
+# 로그 레벨 집계
+logs = [
+    "INFO login user=kim",
+    "ERROR db timeout",
+    "INFO view page=home",
+    "WARNING cpu high",
+    "ERROR db timeout",
+    "INFO logout user=kim",
+    "ERROR api 500",
+    "INFO login user=lee",
+]
+
+level_counter = Counter(line.split()[0] for line in logs)
+
+plt.figure(figsize=(6, 6))
+plt.pie(level_counter.values(), labels=level_counter.keys(), autopct="%1.1f%%", startangle=90)
+plt.title("Log Level Distribution")
+plt.savefig("charts/log_level_distribution.png", dpi=150)
+plt.close()
+```
+
+### 4) 추가 코드 스니펫 (`run_all_ml_dl_examples.py`)
+
+```python
+# Feature importance 상위 5개
+bc = load_breast_cancer()
+Xb = pd.DataFrame(bc.data, columns=bc.feature_names)
+yb = bc.target
+
+rf_cls = RandomForestClassifier(n_estimators=300, random_state=42, n_jobs=-1)
+rf_cls.fit(Xb, yb)
+imp = pd.Series(rf_cls.feature_importances_, index=Xb.columns).sort_values(ascending=False)
+
+plt.figure(figsize=(8, 4.5))
+imp.head(5).sort_values().plot(kind="barh")
+plt.title("Top-5 Feature Importance (Breast Cancer)")
+plt.xlabel("Importance")
+plt.savefig("charts/ml_feature_importance_top5.png", dpi=150)
+plt.close()
+```
+
 ## 생성되는 시각화 파일
 
 - `charts/student_scores.png`
