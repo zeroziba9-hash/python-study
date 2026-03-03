@@ -21,6 +21,14 @@ python-study/
 │  └─ python_results.json
 ├─ outputs/
 │  └─ all_examples_results.json
+├─ charts/
+│  ├─ day1_student_scores.png
+│  ├─ day2_sales_by_region.png
+│  ├─ day3_log_level_distribution.png
+│  ├─ ml_logistic_confusion_matrix.png
+│  ├─ ml_regression_rmse_comparison.png
+│  ├─ ml_feature_importance_top5.png
+│  └─ dl_regularization_sweep.png
 └─ README.md
 ```
 
@@ -41,6 +49,10 @@ python run_all_ml_dl_examples.py
 & "C:\Users\user\AppData\Local\Programs\Python\Python310\python.exe" run_python_programming.py
 & "C:\Users\user\AppData\Local\Programs\Python\Python310\python.exe" run_all_ml_dl_examples.py
 ```
+
+### 시각화 파일 생성
+
+두 스크립트를 실행하면 `charts/`에 PNG가 자동 생성됩니다.
 
 ---
 

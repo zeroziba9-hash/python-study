@@ -11,11 +11,6 @@
       "image_size": "32x32 RGB",
       "train": 50000,
       "test": 10000
-    },
-    "runtime_device": {
-      "torch_version": null,
-      "cuda_available": false,
-      "device": "CPU"
     }
   },
   "concepts": {
@@ -119,5 +114,11 @@
       "결과해석": 20,
       "문서/발표": 20
     }
+  },
+  "charts": {
+    "ml_confusion_matrix": "charts\\ml_logistic_confusion_matrix.png",
+    "ml_regression_rmse": "charts\\ml_regression_rmse_comparison.png",
+    "ml_feature_importance": "charts\\ml_feature_importance_top5.png",
+    "dl_regularization_sweep": "charts\\dl_regularization_sweep.png"
   }
 }

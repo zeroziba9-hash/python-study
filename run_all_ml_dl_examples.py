@@ -1,11 +1,8 @@
 import json
 import math
 import os
-import random
-import time
-from dataclasses import dataclass
 
-import numpy as np
+import matplotlib.pyplot as plt
 import pandas as pd
 from sklearn.datasets import (
     load_breast_cancer,
@@ -16,21 +13,18 @@ from sklearn.datasets import (
 )
 from sklearn.ensemble import RandomForestClassifier, RandomForestRegressor
 from sklearn.linear_model import LogisticRegression, LinearRegression
-from sklearn.metrics import (
-    accuracy_score,
-    classification_report,
-    confusion_matrix,
-    mean_absolute_error,
-    mean_squared_error,
-)
+from sklearn.metrics import accuracy_score, confusion_matrix, mean_absolute_error, mean_squared_error
 from sklearn.model_selection import GridSearchCV, StratifiedKFold, train_test_split
 from sklearn.neural_network import MLPClassifier
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler
 from sklearn.svm import SVC
 
-OUT_DIR = os.path.join(os.path.dirname(__file__), "outputs")
+BASE_DIR = os.path.dirname(__file__)
+OUT_DIR = os.path.join(BASE_DIR, "outputs")
+CHART_DIR = os.path.join(BASE_DIR, "charts")
 os.makedirs(OUT_DIR, exist_ok=True)
+os.makedirs(CHART_DIR, exist_ok=True)
 
 results = {}
 
@@ -57,21 +51,6 @@ print(results["intro"])
 # 1) 준비 파트
 # -----------------------------------------------------------------------------
 section("1) 준비 파트")
-try:
-    import torch
-
-    device_info = {
-        "torch_version": torch.__version__,
-        "cuda_available": bool(torch.cuda.is_available()),
-        "device": torch.cuda.get_device_name(0) if torch.cuda.is_available() else "CPU",
-    }
-except Exception:
-    device_info = {
-        "torch_version": None,
-        "cuda_available": False,
-        "device": "CPU",
-    }
-
 results["prep"] = {
     "recommended_device": "RTX 3060 (if available)",
     "cifar100": {
@@ -80,7 +59,6 @@ results["prep"] = {
         "train": 50000,
         "test": 10000,
     },
-    "runtime_device": device_info,
 }
 print(json.dumps(results["prep"], ensure_ascii=False, indent=2))
 
@@ -114,11 +92,27 @@ X_test_s = scaler.transform(X_test)
 clf = LogisticRegression(max_iter=1000, random_state=42)
 clf.fit(X_train_s, y_train)
 pred = clf.predict(X_test_s)
+cm = confusion_matrix(y_test, pred)
 ml_log = {
     "accuracy": float(accuracy_score(y_test, pred)),
-    "confusion_matrix": confusion_matrix(y_test, pred).tolist(),
+    "confusion_matrix": cm.tolist(),
 }
 print("Logistic Regression accuracy:", ml_log["accuracy"])
+
+# 시각화 1: confusion matrix heatmap
+plt.figure(figsize=(5, 4))
+plt.imshow(cm, cmap="Blues")
+plt.title("Iris Logistic Confusion Matrix")
+plt.colorbar()
+plt.xlabel("Predicted")
+plt.ylabel("True")
+for i in range(cm.shape[0]):
+    for j in range(cm.shape[1]):
+        plt.text(j, i, cm[i, j], ha="center", va="center")
+cm_chart = os.path.join(CHART_DIR, "ml_logistic_confusion_matrix.png")
+plt.tight_layout()
+plt.savefig(cm_chart, dpi=150)
+plt.close()
 
 # 3-2 Regression comparison
 Xr, yr = load_diabetes(return_X_y=True)
@@ -140,6 +134,17 @@ ml_reg = {
     },
 }
 print("Regression metrics:", ml_reg)
+
+# 시각화 2: 회귀 모델 RMSE 비교
+plt.figure(figsize=(6, 4))
+rmse_vals = [ml_reg["LinearRegression"]["RMSE"], ml_reg["RandomForest"]["RMSE"]]
+plt.bar(["LinearRegression", "RandomForest"], rmse_vals)
+plt.title("Regression RMSE Comparison")
+plt.ylabel("RMSE")
+reg_chart = os.path.join(CHART_DIR, "ml_regression_rmse_comparison.png")
+plt.tight_layout()
+plt.savefig(reg_chart, dpi=150)
+plt.close()
 
 # 3-3 SVM GridSearch
 Xw, yw = load_wine(return_X_y=True)
@@ -171,6 +176,16 @@ rf_cls.fit(Xb_train, yb_train)
 imp = pd.Series(rf_cls.feature_importances_, index=Xb.columns).sort_values(ascending=False)
 ml_imp = imp.head(5).to_dict()
 print("Top-5 features:", ml_imp)
+
+# 시각화 3: 중요도 top5
+plt.figure(figsize=(8, 4.5))
+imp.head(5).sort_values().plot(kind="barh")
+plt.title("Top-5 Feature Importance (Breast Cancer)")
+plt.xlabel("Importance")
+imp_chart = os.path.join(CHART_DIR, "ml_feature_importance_top5.png")
+plt.tight_layout()
+plt.savefig(imp_chart, dpi=150)
+plt.close()
 
 results["ml"] = {
     "logistic": ml_log,
@@ -209,7 +224,7 @@ d_pred = mlp.predict(Xd_test)
 mlp_acc = float(accuracy_score(yd_test, d_pred))
 print("Digits MLP accuracy:", mlp_acc)
 
-# Regularization sweep (alpha ~= weight decay)
+# Regularization sweep
 reg_rows = []
 for alpha in [0.0, 1e-4, 1e-3]:
     m = Pipeline([
@@ -230,13 +245,22 @@ for alpha in [0.0, 1e-4, 1e-3]:
     p = m.predict(Xd_test)
     reg_rows.append({"alpha": alpha, "acc": float(accuracy_score(yd_test, p))})
 
+# 시각화 4: alpha별 정확도
+plt.figure(figsize=(6, 4))
+plt.plot([r["alpha"] for r in reg_rows], [r["acc"] for r in reg_rows], marker="o")
+plt.title("Regularization Sweep (Digits MLP)")
+plt.xlabel("alpha")
+plt.ylabel("accuracy")
+plt.xscale("symlog", linthresh=1e-6)
+dl_chart = os.path.join(CHART_DIR, "dl_regularization_sweep.png")
+plt.tight_layout()
+plt.savefig(dl_chart, dpi=150)
+plt.close()
+
 # Early-stopping comparison
 m_no_es = Pipeline([
     ("scaler", StandardScaler()),
-    (
-        "mlp",
-        MLPClassifier(hidden_layer_sizes=(128, 64), max_iter=40, random_state=42),
-    ),
+    ("mlp", MLPClassifier(hidden_layer_sizes=(128, 64), max_iter=40, random_state=42)),
 ])
 m_no_es.fit(Xd_train, yd_train)
 a_no_es = float(accuracy_score(yd_test, m_no_es.predict(Xd_test)))
@@ -281,7 +305,6 @@ def xyxy_to_yolo(x1, y1, x2, y2, img_w, img_h):
 
 bbox_example = xyxy_to_yolo(50, 30, 180, 140, 640, 480)
 
-# 간단 precision/recall 계산 예시
 tp, fp, fn = 42, 8, 10
 precision = tp / (tp + fp)
 recall = tp / (tp + fn)
@@ -312,11 +335,17 @@ project_template = {
     },
 }
 results["project"] = project_template
+results["charts"] = {
+    "ml_confusion_matrix": os.path.relpath(cm_chart, BASE_DIR),
+    "ml_regression_rmse": os.path.relpath(reg_chart, BASE_DIR),
+    "ml_feature_importance": os.path.relpath(imp_chart, BASE_DIR),
+    "dl_regularization_sweep": os.path.relpath(dl_chart, BASE_DIR),
+}
 print(project_template)
 
 
-# Save artifacts
 with open(os.path.join(OUT_DIR, "all_examples_results.json"), "w", encoding="utf-8") as f:
     json.dump(results, f, ensure_ascii=False, indent=2)
 
 print("\n완료: outputs/all_examples_results.json 저장")
+print("시각화 저장:", results["charts"])
